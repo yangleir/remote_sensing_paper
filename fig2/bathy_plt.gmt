@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# plot
+gmt gmtset FONT_TITLE = 8p,19  
+R=120:22/120:41/35:55/36:06
+J=M2.5i
+PS=xmd.ps
+gmt gmtset MAP_FRAME_WIDTH = 0.1c FORMAT_GEO_MAP = ddd:mm:ssF
+gmt gmtset FONT_ANNOT_PRIMARY	= 7p
+gmt gmtset FONT_LABEL 7 MAP_LABEL_OFFSET 5p
+gmt gmtset MAP_FRAME_TYPE plain MAP_TICK_LENGTH_PRIMARY -5p  MAP_FRAME_PEN black
+
+gmt psbasemap -R$R -J$J -P -K -Baf  -BnWSe+t"DTU 18 MSS model" >$PS
+gmt grdcontour ../data/qly.nc -R$R -J$J -C0.1 -A0.5f6+um -Gd1i -L-100/100  -O -K -Wa0.3p -Wc0.15p,red -Bx -By -BWNes>> $PS
+
+gmt pscoast -R$R -J$J -O -Df -W -I1 -K -Glightyellow>> $PS
+awk '{print $1, $2}' ../data/track.dat | gmt psxy -W0.02c,black -R -J -P -O -K>> $PS
+echo  120:26:10 36:03:05 | gmt psxy -Sc0.2c -Gblack -R -J -P -O -K >> $PS
+echo  120:31:38.03 36:1:1.69 | gmt psxy -Sc0.2c -Gblack -R -J -K -P -O >> $PS
+
+# MDT
+gmt psbasemap -R$R -J$J -P -K -Baf  -BnWSe+t"DTU 15 MDT model" -O -X3i >>$PS
+gmt grdcontour ../data/qd.nc -J -R -C0.001 -A0.004f4+um -Gd1i -L-100/100 -O -K -Wa0.3p -Wc0.15p,red,. >> $PS
+gmt pscoast -R$R -J$J -O -Df -W -I1 -K -Glightyellow>> $PS
+awk '{print $1, $2}' ../../data_part/fig/track.dat | gmt psxy -W0.02c,black -R -J -P -O -K>> $PS
+echo  120:26:10 36:03:05 | gmt psxy -Sc0.2c -Gblack -R -J -P -O -K >> $PS
+echo  120:31:38.03 36:1:1.69 | gmt psxy -Sc0.2c -Gblack -R -J -P -O >> $PS
+
+gmt psconvert $PS -A -P -Tf
+rm gmt.* *.ps
