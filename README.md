@@ -1,6 +1,8 @@
 # Plot figures of remote sensing paper
+
 ## Introduction
-Figures in paper " Calibration of an Airborne Interferometric Radar Altimeter over the Qingdao Coast Sea, China" of Remote Sensing
+It contains a group of shells for plotting figures in paper " Calibration of an Airborne Interferometric Radar Altimeter over the Qingdao Coast Sea, China" of Remote Sensing.
+First, you need [GMT](https://github.com/GenericMappingTools/gmt) to plot these figures.
 
 ## Citation
 If you think it is appropriate, you may consider paying us back by including
