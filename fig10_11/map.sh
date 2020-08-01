@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
-data_jizai_large1=../data/simu_wave.nc
+
+# data_jizai_large1=../data/simu_wave.nc
+data_jizai_large1=../wave_simulation/simu_wave.nc
 gmt grdfft  $data_jizai_large1 -Gjizai1.nc -F50/-
+
 # PLOT MAP
 ps3=mss.ps
 J=JX16c/4c
